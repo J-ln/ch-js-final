@@ -132,3 +132,4 @@ function drawVisualiser(bufferLength, x, barWidth, barHeight, dataArray) {
 //         x += barWidth;
 //     }
 // }
+}
