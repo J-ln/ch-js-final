@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/css/style.css" />
+        <title>Document</title>
+    </head>
+    <body>
+        <nav class="navbar"></nav>
+        <div class="container">
+            <canvas class="canvas1" id="canvas1"></canvas>
+            <div class="btn-list">
+                <!-- <button class="audio-btn" id="btn1">Button1</button>
+                <button class="audio-btn" id="btn2">Button2</button> -->
+                <audio class="audio-rep" id="audio1" controls></audio>
+                <input
+                    class="upload-btm"
+                    type="file"
+                    id="fileupload"
+                    accept="audio/*"
+                />
+                <button class="mic-btn" id="mic-button">Toggle Mic</button>
+            </div>
+        </div>
+        <script src="js/audio.js"></script>
+        <script src="https://sdk.scdn.co/spotify-player.js"></script>
+        <script src="js/spotify.js"></script>
+    </body>
+</html>
