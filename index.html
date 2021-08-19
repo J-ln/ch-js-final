@@ -5,27 +5,62 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="/css/style.css" />
+        <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet"
+        />
         <title>Document</title>
     </head>
     <body>
-        <nav class="navbar"></nav>
         <div class="container">
-            <canvas class="canvas1" id="canvas1"></canvas>
-            <div class="btn-list">
-                <!-- <button class="audio-btn" id="btn1">Button1</button>
-                <button class="audio-btn" id="btn2">Button2</button> -->
-                <audio class="audio-rep" id="audio1" controls></audio>
-                <input
-                    class="upload-btm"
-                    type="file"
-                    id="fileupload"
-                    accept="audio/*"
-                />
-                <button class="mic-btn" id="mic-button">Toggle Mic</button>
+            <a href="#" class="logo_link">
+                <div class="logo_icon">
+                    <i class="material-icons"> circle </i>
+                </div>
+                <div class="logo_text">
+                    <span class="color1">s</span><span class="color2">e</span
+                    ><span class="color3">e</span>Beats
+                </div>
+            </a>
+            <nav id="navbar" class="navbar collapsed">
+                <div class="navbar_buttons">
+                    <a href="#" class="navbar_link">
+                        <div class="navbar_icon">
+                            <i class="material-icons"> circle </i>
+                        </div>
+                        <div class="navbar_label">Button 2</div>
+                    </a>
+                    <a href="#" class="navbar_link">
+                        <div class="navbar_icon">
+                            <i class="material-icons"> circle </i>
+                        </div>
+                        <div class="navbar_label">Button 3</div>
+                    </a>
+                    <a href="#" class="navbar_link">
+                        <div class="navbar_icon">
+                            <i class="material-icons"> circle </i>
+                        </div>
+                        <div class="navbar_label">Button 4</div>
+                    </a>
+                </div>
+            </nav>
+            <div class="content">
+                <canvas class="canvas" id="canvas"></canvas>
+                <div class="btn-list">
+                    <audio class="audio-rep" id="audio1" controls></audio>
+                    <input
+                        class="upload-btm"
+                        type="file"
+                        id="fileupload"
+                        accept="audio/*"
+                    />
+                    <button class="mic-btn" id="mic-button">Toggle Mic</button>
+                </div>
             </div>
         </div>
         <script src="js/audio.js"></script>
         <script src="https://sdk.scdn.co/spotify-player.js"></script>
         <script src="js/spotify.js"></script>
+        <script src="js/main.js"></script>
     </body>
 </html>
