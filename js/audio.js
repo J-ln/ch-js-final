@@ -1,7 +1,7 @@
 const file = document.getElementById("fileupload");
 
 const container = document.getElementsByClassName("container");
-const canvas = document.getElementById("canvas1");
+const canvas = document.getElementById("canvas");
 canvas.width = canvas.clientWidth;
 canvas.height = canvas.clientHeight;
 const ctx = canvas.getContext("2d");
@@ -41,7 +41,6 @@ let analyser;
 //     navigator.webkitGetUserMedia ||
 //     navigator.mozGetUserMedia;
 
-
 // navigator.getUserMedia({ video: false, audio: true }, callback);
 
 // let mic = ctx.createMediaStreamSource(stream);
@@ -71,19 +70,11 @@ let analyser;
 // };
 
 file.addEventListener("change", function () {
-    // const files = this.files;
+    const files = this.files;
     let audio1 = document.getElementById("audio1");
-    // console.log(audio1);
-    window.addEventListener("DOMContentLoaded", () => {
-    navigator.mediaDevices
-    .getUserMedia({ audio: { noiseSuppression: true } })
-    .then((stream) => {
-      mic = audioCtx.createMediaStreamSource(stream);
-    });
-    audio1.src = URL.createObjectURL(mic);
+    audio1.src = URL.createObjectURL(files[0]);
     audio1.load();
     audio1.play();
-
     audioSource = audioContext.createMediaElementSource(audio1);
     analyser = audioContext.createAnalyser();
     audioSource.connect(analyser);
@@ -132,4 +123,3 @@ function drawVisualiser(bufferLength, x, barWidth, barHeight, dataArray) {
 //         x += barWidth;
 //     }
 // }
-}

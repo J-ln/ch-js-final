@@ -1,0 +1,36 @@
+.content_modal {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    z-index: 150;
+    color: whitesmoke;
+    background-color: rgba(0, 0, 0, 0.781);
+    .modal_form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 70%;
+        width: 50%;
+        background-color: $rich-black-fogra-39;
+        border-radius: 10px;
+        box-shadow: 0 0 0.2rem rgba(97, 97, 97, 0.596);
+        .modal_btn {
+            position: relative;
+            bottom: -16vh;
+            font-weight: $f-bold;
+            margin: 0.5rem 0 0.5rem;
+            padding: 1rem 4rem;
+            border-radius: 10px;
+            overflow-x: hidden;
+            border: 1px groove gray;
+            box-shadow: 0.3rem 0 0.3rem rgb(131, 129, 129),
+                0 0.3rem 0.3rem rgb(131, 129, 129),
+                0 -0.4rem 0.3rem rgb(95, 95, 95),
+                -0.4rem 0 0.3rem rgb(95, 95, 95);
+        }
+    }
+}

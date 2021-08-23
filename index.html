@@ -9,7 +9,8 @@
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
             rel="stylesheet"
         />
-        <title>Document</title>
+        <link rel="stylesheet" href="css/color-picker.css" />
+        <title>seeBeats</title>
     </head>
     <body>
         <div class="container">
@@ -24,11 +25,11 @@
             </a>
             <nav id="navbar" class="navbar collapsed">
                 <div class="navbar_buttons">
-                    <a href="#" class="navbar_link">
+                    <a href="#" id="addPattern" class="navbar_link">
                         <div class="navbar_icon">
                             <i class="material-icons"> circle </i>
                         </div>
-                        <div class="navbar_label">Button 2</div>
+                        <div class="navbar_label">+Pattern</div>
                     </a>
                     <a href="#" class="navbar_link">
                         <div class="navbar_icon">
@@ -44,7 +45,7 @@
                     </a>
                 </div>
             </nav>
-            <div class="content">
+            <div id="content" class="content">
                 <canvas class="canvas" id="canvas"></canvas>
                 <div class="btn-list">
                     <audio class="audio-rep" id="audio1" controls></audio>
@@ -56,11 +57,27 @@
                     />
                     <button class="mic-btn" id="mic-button">Toggle Mic</button>
                 </div>
+                <div id="modal" class="content_modal">
+                    <div class="modal_form">
+                        <label for="name">Name: </label>
+                        <input type="text" />
+                        <label for="color">Color: </label>
+                        <div id="pickerContainer"></div>
+                        <label for="size">Size: </label>
+                        <input type="" />
+                        <label for="form">Form: </label>
+                        <input type="text" />
+                        <button class="modal_btn" type="submit">
+                            Create New Pattern
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
         <script src="js/audio.js"></script>
-        <script src="https://sdk.scdn.co/spotify-player.js"></script>
+        <!-- <script src="https://sdk.scdn.co/spotify-player.js"></script> -->
         <script src="js/spotify.js"></script>
         <script src="js/main.js"></script>
+        <script src="js/color-picker.js"></script>
     </body>
 </html>
