@@ -1,4 +1,57 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,400;0,700;0,900;1,200;1,400;1,700;1,900&display=swap");
+@-webkit-keyframes slidein {
+  from {
+    margin-top: -100%;
+  }
+  to {
+    margin-top: 0%;
+  }
+}
+@keyframes slidein {
+  from {
+    margin-top: -100%;
+  }
+  to {
+    margin-top: 0%;
+  }
+}
+
+@-webkit-keyframes slidein-2 {
+  from {
+    margin-left: -100%;
+  }
+  to {
+    margin-left: 0%;
+  }
+}
+
+@keyframes slidein-2 {
+  from {
+    margin-left: -100%;
+  }
+  to {
+    margin-left: 0%;
+  }
+}
+
+@-webkit-keyframes slideout-left {
+  from {
+    margin-left: 0%;
+  }
+  to {
+    margin-left: -100%;
+  }
+}
+
+@keyframes slideout-left {
+  from {
+    margin-left: 0%;
+  }
+  to {
+    margin-left: -100%;
+  }
+}
+
 body {
   height: 100vh;
   margin: 0;
@@ -11,10 +64,10 @@ body {
 }
 
 .container {
-  height: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
 }
 
 .container .logo_link {
@@ -22,7 +75,7 @@ body {
   position: fixed;
   margin: auto auto;
   height: 7rem;
-  width: 25rem;
+  width: 20rem;
   text-align: center;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -33,7 +86,7 @@ body {
   left: 6rem;
   top: 0;
   overflow-x: visible;
-  z-index: 100;
+  z-index: 1500;
   font-weight: 700;
   font-size: 1.5rem;
 }
@@ -59,23 +112,96 @@ body {
 }
 
 .container .navbar {
-  width: 25rem;
+  width: 20rem;
   height: 100%;
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
   background-color: #050505ff;
-  -webkit-transition: width 0.3s;
-  transition: width 0.3s;
   z-index: 1000;
+  overflow-y: scroll;
   -webkit-box-shadow: 0.05rem 0 0.4rem rgba(255, 255, 255, 0.295);
           box-shadow: 0.05rem 0 0.4rem rgba(255, 255, 255, 0.295);
+  -webkit-transition: margin 0.5s;
+  transition: margin 0.5s;
 }
 
 .container .navbar.collapsed {
-  width: 4rem;
+  margin-left: -100%;
 }
 
-.container .navbar.collapsed .navbar_label {
-  display: none;
+.container .navbar .settings_visualControls {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: calc(100% - 4rem * 2);
+  margin: 0 auto;
+}
+
+.container .navbar .settings_visualControls .navbar_slider {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.container .navbar .settings_visualControls .navbar_slider .label {
+  color: white;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  font-size: 1.3rem;
+}
+
+.container .navbar .settings_visualControls .navbar_slider .slider {
+  width: 100%;
+  margin: 0.5rem 0;
+}
+
+.container .navbar .settings_visualControls .navbar_slider .slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+          appearance: none;
+  border: 1px solid #000000;
+  height: 0.9rem;
+  width: 0.25rem;
+  border-radius: 5px;
+  background: #ffffff;
+  cursor: pointer;
+  margin-left: -0.2rem;
+  margin-top: -0.3rem;
+  -webkit-box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+          box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+
+.container .navbar .settings_visualControls .navbar_slider .slider::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 0.2rem;
+  cursor: pointer;
+  -webkit-box-shadow: 0 0 0.3rem #b6b6b6;
+          box-shadow: 0 0 0.3rem #b6b6b6;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+  margin: 0;
 }
 
 .container .navbar .navbar_buttons {
@@ -93,6 +219,10 @@ body {
           align-items: center;
   text-decoration: none;
   color: white;
+}
+
+.container .navbar .navbar_link.selected .navbar_label {
+  background-color: plum;
 }
 
 .container .navbar .navbar_link .navbar_icon {
@@ -138,36 +268,167 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  position: relative;
-  height: inherit;
-  width: 100%;
-  -webkit-transition: width 0.3s;
-  transition: width 0.3s;
-  padding: 0;
-  overflow-y: auto;
+  height: calc(100% - 5rem);
+  width: auto;
+  -webkit-transition: padding 0.5s;
+  transition: padding 0.5s;
+  overflow: hidden;
+  padding-bottom: 5rem;
   background-color: #231d1d;
 }
 
-.container .content .canvas {
+.container .content.resize-settings {
+  padding-left: 20rem;
+}
+
+.container .content .canvas_container {
+  position: relative;
   width: 70%;
   height: 50vh;
   background-color: black;
   border: 3px ridge gray;
-  margin-bottom: 2rem;
   border-radius: 10px;
+  margin: auto 0;
   -webkit-box-shadow: 0.1rem 0 0.3rem black, 0 0.1rem 0.3rem black, -0.1rem 0 0.3rem black, 0 -0.1rem 0.3rem black;
           box-shadow: 0.1rem 0 0.3rem black, 0 0.1rem 0.3rem black, -0.1rem 0 0.3rem black, 0 -0.1rem 0.3rem black;
 }
 
-.container .content .btn-list {
-  bottom: 10vh;
+.container .content .canvas_container .canvas {
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  border-radius: 10px;
+}
+
+.container .content .canvas_container .canvas_settings {
+  cursor: pointer;
+  border: none;
+  color: rgba(245, 245, 245, 0.2);
+  padding: 0.3rem 0.3rem;
+  background: none;
+  border-radius: 5px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  position: absolute;
+  top: 0.25rem;
+  left: 0.25rem;
+}
+
+.container .content .canvas_container .canvas_settings:hover {
+  background-color: rgba(245, 245, 245, 0.2);
+  color: rgba(245, 245, 245, 0.8);
+}
+
+.container .content .canvas_container .canvas_settings:active {
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0.4rem 0 0.3rem rgba(15, 15, 15, 0.4), inset 0 0.4rem 0.3rem rgba(15, 15, 15, 0.4), inset 0 -0.4rem 0.3rem rgba(131, 129, 129, 0.4), inset -0.4rem 0 0.3rem rgba(131, 129, 129, 0.4);
+          box-shadow: inset 0.4rem 0 0.3rem rgba(15, 15, 15, 0.4), inset 0 0.4rem 0.3rem rgba(15, 15, 15, 0.4), inset 0 -0.4rem 0.3rem rgba(131, 129, 129, 0.4), inset -0.4rem 0 0.3rem rgba(131, 129, 129, 0.4);
+}
+
+.container .content .canvas_container .canvas_full {
+  cursor: pointer;
+  border: none;
+  color: rgba(245, 245, 245, 0.2);
+  padding: 0.3rem 0.3rem;
+  background: none;
+  border-radius: 5px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  position: absolute;
+  bottom: 0.25rem;
+  right: 0.25rem;
+}
+
+.container .content .canvas_container .canvas_full:hover {
+  background-color: rgba(245, 245, 245, 0.2);
+  color: rgba(245, 245, 245, 0.8);
+}
+
+.container .content .canvas_container .canvas_full:active {
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0.4rem 0 0.3rem rgba(15, 15, 15, 0.4), inset 0 0.4rem 0.3rem rgba(15, 15, 15, 0.4), inset 0 -0.4rem 0.3rem rgba(131, 129, 129, 0.4), inset -0.4rem 0 0.3rem rgba(131, 129, 129, 0.4);
+          box-shadow: inset 0.4rem 0 0.3rem rgba(15, 15, 15, 0.4), inset 0 0.4rem 0.3rem rgba(15, 15, 15, 0.4), inset 0 -0.4rem 0.3rem rgba(131, 129, 129, 0.4), inset -0.4rem 0 0.3rem rgba(131, 129, 129, 0.4);
+}
+
+.audioControls {
+  position: absolute;
+  bottom: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  width: 100%;
+  height: 5rem;
+  z-index: 2500;
+  -webkit-box-shadow: -0.1rem 0 0.3rem #b6b6b6;
+          box-shadow: -0.1rem 0 0.3rem #b6b6b6;
+  background-color: #050505ff;
+  color: whitesmoke;
+}
+
+.audioControls .audioControls_info {
+  position: absolute;
+  left: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.audioControls .audioControls_info .info_label {
+  border-radius: 5px;
+  background-color: darkgray;
+  height: 4rem;
+  width: 4rem;
+}
+
+.audioControls .audioControls_info .info_text {
+  margin-left: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: left;
+}
+
+.audioControls .audioControls_info .info_text .info_name {
+  font-weight: 900;
+  font-size: 1rem;
+}
+
+.audioControls .audioControls_info .info_text .info_artist {
+  font-size: 0.75rem;
+  color: rgba(186, 186, 186, 0.842);
+}
+
+.audioControls .audioControls_audioPlayer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -181,46 +442,248 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  width: auto;
-  height: auto;
-  padding: 1.5rem 10rem;
-  margin: 0 auto;
-  -webkit-box-shadow: 0.1rem 0 0.3rem black, 0 0.1rem 0.3rem black, -0.1rem 0 0.3rem black, 0 -0.1rem 0.3rem black;
-          box-shadow: 0.1rem 0 0.3rem black, 0 0.1rem 0.3rem black, -0.1rem 0 0.3rem black, 0 -0.1rem 0.3rem black;
-  border-radius: 10px;
-  background-color: rgba(47, 79, 79, 0.2);
-  z-index: 30;
+  width: 30%;
+  height: 100%;
 }
 
-.container .content .btn-list .audio-btn {
-  margin: 0 auto 1em;
-  padding: 0.8rem;
+.audioControls .audioControls_audioPlayer .audioPlayer_src {
+  visibility: none;
 }
 
-.container .content .btn-list .upload-btm {
-  margin: 0 auto;
-  padding: 0.8rem;
-  color: white;
+.audioControls .audioControls_audioPlayer .audioPlayer_buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding-bottom: 0.3rem;
 }
 
-.container .content .btn-list .mic-btn {
-  font-weight: 700;
-  font-size: 1.2rem;
-  padding: 1rem 2rem;
-  border-radius: 10px;
-  overflow-x: hidden;
-  border: 1px groove gray;
-  -webkit-box-shadow: 0.1rem 0.1rem 0.3rem #b8b8b8, -0.1rem -0.1rem 0.3rem #949090;
-          box-shadow: 0.1rem 0.1rem 0.3rem #b8b8b8, -0.1rem -0.1rem 0.3rem #949090;
+.audioControls .audioControls_audioPlayer .audioPlayer_buttons .audioPlayer_prevIcon {
+  cursor: pointer;
+  border: none;
+  padding: 0.3rem 0.3rem;
+  background: none;
+  border-radius: 5px;
+  margin: auto 0.5rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
-.container .content .btn-list .mic-btn:hover {
+.audioControls .audioControls_audioPlayer .audioPlayer_buttons .audioPlayer_prevIcon:hover {
+  background-color: rgba(245, 245, 245, 0.2);
+}
+
+.audioControls .audioControls_audioPlayer .audioPlayer_buttons .audioPlayer_prevIcon:active {
+  border-radius: 5px;
   -webkit-box-shadow: inset 0.4rem 0 0.3rem rgba(15, 15, 15, 0.4), inset 0 0.4rem 0.3rem rgba(15, 15, 15, 0.4), inset 0 -0.4rem 0.3rem rgba(131, 129, 129, 0.4), inset -0.4rem 0 0.3rem rgba(131, 129, 129, 0.4);
           box-shadow: inset 0.4rem 0 0.3rem rgba(15, 15, 15, 0.4), inset 0 0.4rem 0.3rem rgba(15, 15, 15, 0.4), inset 0 -0.4rem 0.3rem rgba(131, 129, 129, 0.4), inset -0.4rem 0 0.3rem rgba(131, 129, 129, 0.4);
 }
 
-.container .content .btn-list .mic-btn .mic-on {
-  background-color: red;
+.audioControls .audioControls_audioPlayer .audioPlayer_buttons .audioPlayer_playIcon {
+  cursor: pointer;
+  border: none;
+  padding: 0.3rem 0.3rem;
+  background: none;
+  border-radius: 5px;
+  margin: auto 0.5rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.audioControls .audioControls_audioPlayer .audioPlayer_buttons .audioPlayer_playIcon:hover {
+  background-color: rgba(245, 245, 245, 0.2);
+}
+
+.audioControls .audioControls_audioPlayer .audioPlayer_buttons .audioPlayer_playIcon:active {
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0.4rem 0 0.3rem rgba(15, 15, 15, 0.4), inset 0 0.4rem 0.3rem rgba(15, 15, 15, 0.4), inset 0 -0.4rem 0.3rem rgba(131, 129, 129, 0.4), inset -0.4rem 0 0.3rem rgba(131, 129, 129, 0.4);
+          box-shadow: inset 0.4rem 0 0.3rem rgba(15, 15, 15, 0.4), inset 0 0.4rem 0.3rem rgba(15, 15, 15, 0.4), inset 0 -0.4rem 0.3rem rgba(131, 129, 129, 0.4), inset -0.4rem 0 0.3rem rgba(131, 129, 129, 0.4);
+}
+
+.audioControls .audioControls_audioPlayer .audioPlayer_buttons .audioPlayer_nextIcon {
+  cursor: pointer;
+  border: none;
+  padding: 0.3rem 0.3rem;
+  background: none;
+  border-radius: 5px;
+  margin: auto 0.5rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.audioControls .audioControls_audioPlayer .audioPlayer_buttons .audioPlayer_nextIcon:hover {
+  background-color: rgba(245, 245, 245, 0.2);
+}
+
+.audioControls .audioControls_audioPlayer .audioPlayer_buttons .audioPlayer_nextIcon:active {
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0.4rem 0 0.3rem rgba(15, 15, 15, 0.4), inset 0 0.4rem 0.3rem rgba(15, 15, 15, 0.4), inset 0 -0.4rem 0.3rem rgba(131, 129, 129, 0.4), inset -0.4rem 0 0.3rem rgba(131, 129, 129, 0.4);
+          box-shadow: inset 0.4rem 0 0.3rem rgba(15, 15, 15, 0.4), inset 0 0.4rem 0.3rem rgba(15, 15, 15, 0.4), inset 0 -0.4rem 0.3rem rgba(131, 129, 129, 0.4), inset -0.4rem 0 0.3rem rgba(131, 129, 129, 0.4);
+}
+
+.audioControls .audioControls_audioPlayer .audioPlayer_timeSliderContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  width: 100%;
+}
+
+.audioControls .audioControls_audioPlayer .audioPlayer_timeSliderContainer .audioPlayer_lengthSlider {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  width: 100%;
+  background: transparent;
+  margin: 0 0.5rem;
+}
+
+.audioControls .audioControls_audioPlayer .audioPlayer_timeSliderContainer .audioPlayer_cTime,
+.audioControls .audioControls_audioPlayer .audioPlayer_timeSliderContainer .audioPlayer_dTime {
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.audioControls .audioControls_audioPlayer .audioPlayer_timeSliderContainer .audioPlayer_lengthSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: 1px solid #000000;
+  height: 0.9rem;
+  width: 0.25rem;
+  border-radius: 5px;
+  background: #ffffff;
+  cursor: pointer;
+  margin-left: -0.2rem;
+  margin-top: -0.3rem;
+  -webkit-box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+          box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+
+.audioControls .audioControls_audioPlayer .audioPlayer_timeSliderContainer .audioPlayer_lengthSlider::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 0.2rem;
+  cursor: pointer;
+  -webkit-box-shadow: 0 0 0.3rem #b6b6b6;
+          box-shadow: 0 0 0.3rem #b6b6b6;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+  margin: 0;
+}
+
+.audioControls .audioControls_buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: absolute;
+  right: 0.5rem;
+}
+
+.audioControls .audioControls_buttons .audio-btn {
+  margin: 0 auto 1em;
+  padding: 0.8rem;
+}
+
+.audioControls .audioControls_buttons .upload-btm {
+  margin: 0;
+  color: white;
+  background: #050505ff;
+  border-radius: 5px;
+  padding: 0.3rem;
+  border: inset 1px white;
+  margin: auto 0.5rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.audioControls .audioControls_buttons .upload-btm:hover {
+  background-color: rgba(245, 245, 245, 0.2);
+}
+
+.audioControls .audioControls_buttons .upload-btm:active {
+  border-radius: 5px;
+  border: 1px solid white;
+  -webkit-box-shadow: inset 0.4rem 0 0.3rem rgba(15, 15, 15, 0.4), inset 0 0.4rem 0.3rem rgba(15, 15, 15, 0.4), inset 0 -0.4rem 0.3rem rgba(131, 129, 129, 0.4), inset -0.4rem 0 0.3rem rgba(131, 129, 129, 0.4);
+          box-shadow: inset 0.4rem 0 0.3rem rgba(15, 15, 15, 0.4), inset 0 0.4rem 0.3rem rgba(15, 15, 15, 0.4), inset 0 -0.4rem 0.3rem rgba(131, 129, 129, 0.4), inset -0.4rem 0 0.3rem rgba(131, 129, 129, 0.4);
+}
+
+.audioControls .audioControls_buttons .mic-btn {
+  cursor: pointer;
+  padding: 0.3rem;
+  margin: auto 0.5rem;
+  border-radius: 5px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  -webkit-box-shadow: inset 0.1rem 0 0.1rem rgba(102, 102, 102, 0.651), inset 0 0.1rem 0.1rem rgba(102, 102, 102, 0.651), inset 0 -0.1rem 0.1rem rgba(38, 38, 38, 0.692), inset -0.1rem 0 0.1rem rgba(38, 38, 38, 0.692);
+          box-shadow: inset 0.1rem 0 0.1rem rgba(102, 102, 102, 0.651), inset 0 0.1rem 0.1rem rgba(102, 102, 102, 0.651), inset 0 -0.1rem 0.1rem rgba(38, 38, 38, 0.692), inset -0.1rem 0 0.1rem rgba(38, 38, 38, 0.692);
+}
+
+.audioControls .audioControls_buttons .mic-btn:hover {
+  background-color: rgba(245, 245, 245, 0.2);
+}
+
+.audioControls .audioControls_buttons .mic-btn:active {
+  -webkit-box-shadow: inset 0.2rem 0 0.1rem rgba(38, 38, 38, 0.692), inset 0 0.2rem 0.1rem rgba(38, 38, 38, 0.692), inset 0 -0.2rem 0.1rem rgba(102, 102, 102, 0.651), inset -0.2rem 0 0.1rem rgba(102, 102, 102, 0.651);
+          box-shadow: inset 0.2rem 0 0.1rem rgba(38, 38, 38, 0.692), inset 0 0.2rem 0.1rem rgba(38, 38, 38, 0.692), inset 0 -0.2rem 0.1rem rgba(102, 102, 102, 0.651), inset -0.2rem 0 0.1rem rgba(102, 102, 102, 0.651);
+}
+
+.audioControls .audioControls_buttons .mic-btn.active {
+  background-color: rgba(199, 0, 0, 0.4);
+  -webkit-box-shadow: inset 0.2rem 0 0.1rem rgba(20, 20, 20, 0.692), inset 0 0.2rem 0.1rem rgba(38, 38, 38, 0.692), inset 0 -0.1rem 0.1rem rgba(77, 77, 77, 0.651), inset -0.1rem 0 0.1rem rgba(77, 77, 77, 0.651);
+          box-shadow: inset 0.2rem 0 0.1rem rgba(20, 20, 20, 0.692), inset 0 0.2rem 0.1rem rgba(38, 38, 38, 0.692), inset 0 -0.1rem 0.1rem rgba(77, 77, 77, 0.651), inset -0.1rem 0 0.1rem rgba(77, 77, 77, 0.651);
+}
+
+.audioControls .audioControls_buttons .queue-btn {
+  cursor: pointer;
+  border: none;
+  padding: 0.3rem 0.3rem;
+  background: none;
+  border-radius: 5px;
+  margin: auto 0.5rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.audioControls .audioControls_buttons .queue-btn:hover {
+  background-color: rgba(245, 245, 245, 0.2);
+}
+
+.audioControls .audioControls_buttons .queue-btn:active {
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0.4rem 0 0.3rem rgba(15, 15, 15, 0.4), inset 0 0.4rem 0.3rem rgba(15, 15, 15, 0.4), inset 0 -0.4rem 0.3rem rgba(131, 129, 129, 0.4), inset -0.4rem 0 0.3rem rgba(131, 129, 129, 0.4);
+          box-shadow: inset 0.4rem 0 0.3rem rgba(15, 15, 15, 0.4), inset 0 0.4rem 0.3rem rgba(15, 15, 15, 0.4), inset 0 -0.4rem 0.3rem rgba(131, 129, 129, 0.4), inset -0.4rem 0 0.3rem rgba(131, 129, 129, 0.4);
 }
 
 .content_modal {
@@ -238,10 +701,42 @@ body {
   width: 100%;
   z-index: 150;
   color: whitesmoke;
-  background-color: rgba(0, 0, 0, 0.781);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.content_modal.modal--close {
+  visibility: hidden;
 }
 
 .content_modal .modal_form {
+  position: relative;
+  display: -ms-grid;
+  display: grid;
+      grid-template-areas: "name colorp" "size colorp" "form colorp" " button button";
+  -ms-grid-columns: 2fr 2fr;
+      grid-template-columns: 2fr 2fr;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 70%;
+  width: 50%;
+  background-color: #231d1d;
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0.1rem 0.1rem 1rem rgba(255, 254, 254, 0.2), inset -0.2rem -0.2rem 1rem rgba(0, 0, 0, 0.99);
+          box-shadow: inset 0.1rem 0.1rem 1rem rgba(255, 254, 254, 0.2), inset -0.2rem -0.2rem 1rem rgba(0, 0, 0, 0.99);
+  -webkit-animation-duration: 0.7s;
+          animation-duration: 0.7s;
+  -webkit-animation-name: slidein;
+          animation-name: slidein;
+}
+
+.content_modal .modal_form .modal_nameP {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: name;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -252,27 +747,94 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  height: 70%;
-  width: 50%;
-  background-color: #050505ff;
+}
+
+.content_modal .modal_form .modal_sizeP {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  grid-area: size;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.content_modal .modal_form .modal_formP {
+  -ms-grid-row: 3;
+  -ms-grid-column: 1;
+  grid-area: form;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.content_modal .modal_form .modal_colorP {
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 3;
+  -ms-grid-column: 2;
+  grid-area: colorp;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.content_modal .modal_form .modal_input--text {
   border-radius: 10px;
-  -webkit-box-shadow: 0 0 0.2rem rgba(97, 97, 97, 0.596);
-          box-shadow: 0 0 0.2rem rgba(97, 97, 97, 0.596);
+  padding: 0.3rem 0.8rem;
+  font-size: 1.2rem;
+  width: 50%;
+  outline-style: none;
 }
 
 .content_modal .modal_form .modal_btn {
-  position: relative;
-  bottom: -16vh;
+  -ms-grid-row: 4;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+  grid-area: button;
   font-weight: 700;
-  margin: 0.5rem 0 0.5rem;
+  margin: 0 auto;
   padding: 1rem 4rem;
   border-radius: 10px;
   overflow-x: hidden;
   border: 1px groove gray;
-  -webkit-box-shadow: 0.3rem 0 0.3rem #838181, 0 0.3rem 0.3rem #838181, 0 -0.4rem 0.3rem #5f5f5f, -0.4rem 0 0.3rem #5f5f5f;
-          box-shadow: 0.3rem 0 0.3rem #838181, 0 0.3rem 0.3rem #838181, 0 -0.4rem 0.3rem #5f5f5f, -0.4rem 0 0.3rem #5f5f5f;
+  -webkit-box-shadow: inset 0.1rem 0.1rem 0.5rem rgba(184, 184, 184, 0.9), inset -0.1rem -0.1rem 0.5rem rgba(0, 0, 0, 0.99);
+          box-shadow: inset 0.1rem 0.1rem 0.5rem rgba(184, 184, 184, 0.9), inset -0.1rem -0.1rem 0.5rem rgba(0, 0, 0, 0.99);
+}
+
+.content_modal .modal_form .modal_btn:hover {
+  -webkit-box-shadow: inset -0.1rem -0.1rem 0.5rem rgba(184, 184, 184, 0.9), inset 0.1rem 0.1rem 0.5rem rgba(0, 0, 0, 0.99);
+          box-shadow: inset -0.1rem -0.1rem 0.5rem rgba(184, 184, 184, 0.9), inset 0.1rem 0.1rem 0.5rem rgba(0, 0, 0, 0.99);
+}
+
+.material-icons.md-bg {
+  font-size: 2rem;
+}
+
+.material-icons.md-mg {
+  font-size: 1.3rem;
+}
+
+.navbar.collapsed .visualControls {
+  display: none;
 }
 /*# sourceMappingURL=style.css.map */

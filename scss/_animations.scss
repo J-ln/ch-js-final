@@ -1,0 +1,29 @@
+@keyframes slidein {
+    from {
+        margin-top: -100%;
+    }
+
+    to {
+        margin-top: 0%;
+    }
+}
+
+@keyframes slidein-2 {
+    from {
+        margin-left: -100%;
+    }
+
+    to {
+        margin-left: 0%;
+    }
+}
+
+@keyframes slideout-left {
+    from {
+        margin-left: 0%;
+    }
+
+    to {
+        margin-left: -100%;
+    }
+}

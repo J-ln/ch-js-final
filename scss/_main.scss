@@ -7,9 +7,12 @@ body {
     font-weight: $f-regular;
     font-size: 16px;
 }
+
 .container {
-    height: 100%;
-    display: flex;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    position: relative;
     .logo_link {
         text-decoration: none;
         position: fixed;
@@ -22,7 +25,7 @@ body {
         left: 6rem;
         top: 0;
         overflow-x: visible;
-        z-index: 100;
+        z-index: 1500;
         font-weight: $f-bold;
         font-size: 1.5rem;
         .logo.img {
@@ -44,16 +47,62 @@ body {
     .navbar {
         width: $nav-widht;
         height: 100%;
-        position: relative;
+        position: absolute;
+        top: 0;
+        left: 0;
         background-color: $rich-black-fogra-39;
-        transition: width 0.3s;
         z-index: 1000;
+        overflow-y: scroll;
         box-shadow: 0.05rem 0 0.4rem rgba(255, 255, 255, 0.295);
+        transition: margin 0.5s;
         &.collapsed {
-            width: $collapsed-nav-width;
+            margin-left: -100%;
         }
-        &.collapsed .navbar_label {
-            display: none;
+        .settings_visualControls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: calc(100% - #{$collapsed-nav-width} * 2);
+            margin: 0 auto;
+            .navbar_slider {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                margin: 1rem 0;
+                .label {
+                    color: white;
+                    align-self: flex-start;
+                    font-size: 1.3rem;
+                }
+                .slider {
+                    width: 100%;
+                    margin: 0.5rem 0;
+                    &::-webkit-slider-thumb {
+                        appearance: none;
+                        border: 1px solid #000000;
+                        height: 0.9rem;
+                        width: 0.25rem;
+                        border-radius: 5px;
+                        background: #ffffff;
+                        cursor: pointer;
+                        margin-left: -0.2rem;
+                        margin-top: -0.3rem;
+                        box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+                    }
+                    &::-webkit-slider-runnable-track {
+                        width: 100%;
+                        height: 0.2rem;
+                        cursor: pointer;
+                        box-shadow: 0 0 0.3rem rgb(182, 182, 182);
+                        background: rgba(255, 255, 255, 0.5);
+                        border-radius: 5px;
+                        margin: 0;
+                    }
+                }
+            }
         }
         .navbar_buttons {
             padding-top: 7rem;
@@ -64,6 +113,9 @@ body {
             align-items: center;
             text-decoration: none;
             color: white;
+            &.selected .navbar_label {
+                background-color: plum;
+            }
             .navbar_icon {
                 width: $collapsed-nav-width;
                 height: $collapsed-nav-width;
@@ -95,70 +147,46 @@ body {
     }
     .content {
         display: flex;
+        // position: relative;
         justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        position: relative;
-        height: inherit;
-        width: 100%;
-        transition: width 0.3s;
-        padding: 0;
-        // padding-left: $nav-widht;
-        overflow-y: auto;
+        // align-items: center;
+        height: calc(100% - #{$audio-controls-height});
+        width: auto;
+        transition: padding 0.5s;
+        overflow: hidden;
+        padding-bottom: $audio-controls-height;
         background-color: $rich-black-fogra-39-2;
-        .canvas {
+        &.resize-settings {
+            padding-left: $nav-widht;
+        }
+        .canvas_container {
+            position: relative;
             width: 70%;
             height: 50vh;
             background-color: black;
             border: 3px ridge gray;
-            margin-bottom: 2rem;
             border-radius: 10px;
+            margin: auto 0;
             box-shadow: 0.1rem 0 0.3rem black, 0 0.1rem 0.3rem black,
                 -0.1rem 0 0.3rem black, 0 -0.1rem 0.3rem black;
-            // filter: blur(1.5px);
-        }
-        .btn-list {
-            bottom: 10vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: auto;
-            height: auto;
-            padding: 1.5rem 10rem;
-            margin: 0 auto;
-            box-shadow: 0.1rem 0 0.3rem black, 0 0.1rem 0.3rem black,
-                -0.1rem 0 0.3rem black, 0 -0.1rem 0.3rem black;
-            border-radius: 10px;
-            background-color: rgba(47, 79, 79, 0.2);
-            z-index: 30;
-            .audio-btn {
-                margin: 0 auto 1em;
-                padding: 0.8rem;
-            }
-            .upload-btm {
-                margin: 0 auto;
-                padding: 0.8rem;
-                color: white;
-            }
-            .mic-btn {
-                font-weight: $f-bold;
-                font-size: 1.2rem;
-                padding: 1rem 2rem;
+            .canvas {
+                width: 100%;
+                height: 100%;
+                background-color: black;
                 border-radius: 10px;
-                overflow-x: hidden;
-                border: 1px groove gray;
-                box-shadow: 0.1rem 0.1rem 0.3rem rgb(184, 184, 184),
-                    -0.1rem -0.1rem 0.3rem rgb(148, 144, 144);
-                &:hover {
-                    box-shadow: inset 0.4rem 0 0.3rem rgba(15, 15, 15, 0.4),
-                        inset 0 0.4rem 0.3rem rgba(15, 15, 15, 0.4),
-                        inset 0 -0.4rem 0.3rem rgba(131, 129, 129, 0.4),
-                        inset -0.4rem 0 0.3rem rgba(131, 129, 129, 0.4);
-                }
-                & .mic-on {
-                    background-color: red;
-                }
+                // filter: blur(1.5px);
+            }
+            .canvas_settings {
+                @include button-3;
+                position: absolute;
+                top: 0.25rem;
+                left: 0.25rem;
+            }
+            .canvas_full {
+                @include button-3;
+                position: absolute;
+                bottom: 0.25rem;
+                right: 0.25rem;
             }
         }
     }

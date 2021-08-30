@@ -7,30 +7,63 @@
     width: 100%;
     z-index: 150;
     color: whitesmoke;
-    background-color: rgba(0, 0, 0, 0.781);
+    background-color: rgba(0, 0, 0, 0.4);
+    &.modal--close {
+        visibility: hidden;
+    }
     .modal_form {
-        display: flex;
-        flex-direction: column;
+        position: relative;
+        display: grid;
+        grid-template-areas: "name colorp" "size colorp" "form colorp" " button button";
+        grid-template-columns: 2fr 2fr;
         align-items: center;
         justify-content: center;
         height: 70%;
         width: 50%;
-        background-color: $rich-black-fogra-39;
+        background-color: $rich-black-fogra-39-2;
         border-radius: 10px;
-        box-shadow: 0 0 0.2rem rgba(97, 97, 97, 0.596);
+        box-shadow: inset 0.1rem 0.1rem 1rem rgba(255, 254, 254, 0.2),
+            inset -0.2rem -0.2rem 1rem rgba(0, 0, 0, 0.99);
+        animation-duration: 0.7s;
+        animation-name: slidein;
+        .modal_nameP {
+            grid-area: name;
+            @include modal_camp;
+        }
+        .modal_sizeP {
+            grid-area: size;
+            @include modal_camp;
+        }
+        .modal_formP {
+            grid-area: form;
+            @include modal_camp;
+        }
+        .modal_colorP {
+            grid-area: colorp;
+            @include modal_camp;
+        }
+        .modal_input--text {
+            border-radius: 10px;
+            padding: 0.3rem 0.8rem;
+            font-size: 1.2rem;
+            width: 50%;
+            outline-style: none;
+        }
         .modal_btn {
-            position: relative;
-            bottom: -16vh;
+            grid-area: button;
             font-weight: $f-bold;
-            margin: 0.5rem 0 0.5rem;
+            margin: 0 auto;
             padding: 1rem 4rem;
             border-radius: 10px;
             overflow-x: hidden;
             border: 1px groove gray;
-            box-shadow: 0.3rem 0 0.3rem rgb(131, 129, 129),
-                0 0.3rem 0.3rem rgb(131, 129, 129),
-                0 -0.4rem 0.3rem rgb(95, 95, 95),
-                -0.4rem 0 0.3rem rgb(95, 95, 95);
+            box-shadow: inset 0.1rem 0.1rem 0.5rem rgba(184, 184, 184, 0.9),
+                inset -0.1rem -0.1rem 0.5rem rgba(0, 0, 0, 0.99);
+            &:hover {
+                box-shadow: inset -0.1rem -0.1rem 0.5rem
+                        rgba(184, 184, 184, 0.9),
+                    inset 0.1rem 0.1rem 0.5rem rgba(0, 0, 0, 0.99);
+            }
         }
     }
 }
