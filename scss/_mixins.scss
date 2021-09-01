@@ -1,0 +1,68 @@
+@mixin modal_camp {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@mixin button-1 {
+    cursor: pointer;
+    border: none;
+    padding: 0.3rem 0.3rem;
+    background: none;
+    border-radius: 5px;
+    margin: auto 0.5rem;
+    user-select: none;
+    &:hover {
+        background-color: rgba(245, 245, 245, 0.2);
+    }
+    &:active {
+        border-radius: 5px;
+        box-shadow: inset 0.4rem 0 0.3rem rgba(15, 15, 15, 0.4),
+            inset 0 0.4rem 0.3rem rgba(15, 15, 15, 0.4),
+            inset 0 -0.4rem 0.3rem rgba(131, 129, 129, 0.4),
+            inset -0.4rem 0 0.3rem rgba(131, 129, 129, 0.4);
+    }
+}
+
+@mixin button-2 {
+    cursor: pointer;
+    padding: 0.3rem;
+    margin: auto 0.5rem;
+    border-radius: 5px;
+    user-select: none;
+    box-shadow: inset 0.1rem 0 0.1rem hsla(0, 0%, 40%, 0.651),
+        inset 0 0.1rem 0.1rem hsla(0, 0%, 40%, 0.651),
+        inset 0 -0.1rem 0.1rem hsla(0, 0%, 15%, 0.692),
+        inset -0.1rem 0 0.1rem hsla(0, 0%, 15%, 0.692);
+
+    &:hover {
+        background-color: rgba(245, 245, 245, 0.2);
+    }
+    &:active {
+        box-shadow: inset 0.2rem 0 0.1rem hsla(0, 0%, 15%, 0.692),
+            inset 0 0.2rem 0.1rem hsla(0, 0%, 15%, 0.692),
+            inset 0 -0.2rem 0.1rem hsla(0, 0%, 40%, 0.651),
+            inset -0.2rem 0 0.1rem hsla(0, 0%, 40%, 0.651);
+    }
+}
+
+@mixin button-3 {
+    cursor: pointer;
+    border: none;
+    color: hsla(0, 0%, 96%, 0.2);
+    padding: 0.3rem 0.3rem;
+    background: none;
+    border-radius: 5px;
+    user-select: none;
+    &:hover {
+        background-color: rgba(245, 245, 245, 0.2);
+        color: hsla(0, 0%, 96%, 0.8);
+    }
+    &:active {
+        border-radius: 5px;
+        box-shadow: inset 0.4rem 0 0.3rem rgba(15, 15, 15, 0.4),
+            inset 0 0.4rem 0.3rem rgba(15, 15, 15, 0.4),
+            inset 0 -0.4rem 0.3rem rgba(131, 129, 129, 0.4),
+            inset -0.4rem 0 0.3rem rgba(131, 129, 129, 0.4);
+    }
+}
