@@ -9,10 +9,13 @@
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
             rel="stylesheet"
         />
+
         <title>seeBeats</title>
     </head>
     <body>
         <div class="container">
+            <!-- LOGO -->
+
             <a href="#" class="logo_link">
                 <div class="logo_icon">
                     <i class="material-icons"> circle </i>
@@ -23,37 +26,24 @@
                 </div>
             </a>
 
-            <!-- NAVBAR -->
+            <!-- SETTINGS -->
 
-            <nav id="navbar" class="navbar">
-                <div class="navbar_buttons">
-                    <a href="#" id="addPattern" class="navbar_link">
-                        <div class="navbar_icon">
-                            <i class="material-icons"> circle </i>
-                        </div>
-                        <div class="navbar_label">+Pattern</div>
-                    </a>
-                    <a id="toggleSimple" href="" class="navbar_link selected">
-                        <div class="navbar_icon">
-                            <i class="material-icons"> circle </i>
-                        </div>
-                        <div class="navbar_label">Simple</div>
-                    </a>
-                    <a id="toggleGran" href="" class="navbar_link">
-                        <div class="navbar_icon">
-                            <i class="material-icons"> circle </i>
-                        </div>
-                        <div class="navbar_label">Gran</div>
-                    </a>
-                    <a id="toggleMirror" href="" class="navbar_link">
-                        <div class="navbar_icon">
-                            <i class="material-icons"> circle </i>
-                        </div>
-                        <div class="navbar_label">Mirror</div>
-                    </a>
+            <div id="settings" class="settings collapsed">
+                <div class="settings_logo"></div>
+                <div id="patternBtnCont" class="patterns_buttons">
+                    <span class="patterns_label">Patterns</span>
+                    <div id="addPattern" class="setting_addPattern">
+                        +Pattern
+                    </div>
+
+                    <div id="toggleSimple" class="settings_label">Simple</div>
+
+                    <div id="toggleGran" class="settings_label">Gran</div>
+
+                    <div id="toggleMirror" class="settings_label">Mirror</div>
                 </div>
                 <div class="settings_visualControls">
-                    <div class="navbar_slider">
+                    <div class="settings_slider">
                         <label class="label" for="size">Size</label>
                         <input
                             type="range"
@@ -64,7 +54,7 @@
                             id="sizeP"
                         />
                     </div>
-                    <div class="navbar_slider">
+                    <div class="settings_slider">
                         <label class="label" for="sample">Sample</label>
                         <input
                             type="range"
@@ -75,11 +65,21 @@
                             id="sampleP"
                         />
                     </div>
-                    <div class="navbar_slider">
+                    <div class="settings_slider">
                         <label class="label" for="color">Color</label>
+                        <div class="switchBtn">
+                            <div class="switch_span">RGB / VAR</div>
+                            <input
+                                class="switch_check"
+                                type="checkbox"
+                                name="colorMode"
+                                id="checkColorMode"
+                            />
+                            <span class="switch_button"></span>
+                        </div>
                         <input
                             type="range"
-                            min="0"
+                            min="1"
                             max="255"
                             value="125"
                             class="slider"
@@ -88,7 +88,7 @@
 
                         <input
                             type="range"
-                            min="0"
+                            min="1"
                             max="255"
                             value="125"
                             class="slider"
@@ -97,7 +97,7 @@
 
                         <input
                             type="range"
-                            min="0"
+                            min="1"
                             max="255"
                             value="125"
                             class="slider"
@@ -105,7 +105,7 @@
                         />
                     </div>
                 </div>
-            </nav>
+            </div>
 
             <!-- CONTENT -->
 
@@ -138,6 +138,7 @@
                         <div id="artist-container" class="info_artist"></div>
                     </div>
                 </div>
+
                 <div class="audioControls_audioPlayer" id="audioplayer">
                     <audio
                         class="audioPlayer_src"
@@ -148,6 +149,7 @@
                         <i class="material-icons md-mg audioPlayer_prevIcon">
                             skip_previous
                         </i>
+
                         <i
                             id="play-icon"
                             class="
@@ -155,9 +157,11 @@
                                 md-light md-bg
                                 audioPlayer_playIcon
                             "
+                            aria-disabled="true"
                         >
                             play_arrow
                         </i>
+
                         <i class="material-icons md-mg audioPlayer_nextIcon">
                             skip_next
                         </i>
@@ -167,6 +171,7 @@
                         <span id="current-time" class="audioPlayer_cTime"
                             >0:00</span
                         >
+
                         <input
                             class="audioPlayer_lengthSlider"
                             type="range"
@@ -174,40 +179,38 @@
                             max="100"
                             value="0"
                         />
+
                         <span id="duration" class="audioPlayer_dTime"
                             >0:00</span
                         >
                     </div>
-
-                    <!-- <input
-                        type="range"
-                        id="volume-slider"
-                        max="100"
-                        value="100"
-                    /> -->
                 </div>
+
                 <div class="audioControls_buttons">
                     <i class="mic-btn material-icons md-mg" id="micBtn">mic</i>
+
                     <input
                         type="file"
                         id="fileupload"
                         accept="audio/*"
                         hidden
                     />
+
                     <label
                         class="material-icons md-mg upload-btm"
                         for="fileupload"
                         >file_upload</label
                     >
+
                     <i id="queueBtn" class="material-icons md-mg queue-btn">
                         queue_music
                     </i>
                 </div>
             </div>
         </div>
-        <script src="js/audio.js"></script>
-        <!-- <script src="https://sdk.scdn.co/spotify-player.js"></script> -->
-        <script src="js/spotify.js"></script>
+
+        <!-- END -->
+
         <script src="js/main.js"></script>
     </body>
 </html>
