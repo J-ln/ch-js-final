@@ -66,7 +66,7 @@ let b = 125;
 let rangeColor;
 let currentPattern = 0;
 
-//AUDIO AND VIZUALIZER INIT FUNCTION
+//AUDIO AND VIZUALIZER INIT FUNCTION ON UPLOAD FILE
 //
 file.addEventListener("change", function () {
     const files = this.files;
@@ -287,6 +287,8 @@ function whilePlaying() {
     raf = requestAnimationFrame(whilePlaying);
 }
 
+//CHECK STATE OF AUDIO SRC
+
 if (audio.readyState > 0) {
     displayDuration();
     setSliderMax();
@@ -311,6 +313,21 @@ playIconContainer.addEventListener("click", () => {
 });
 
 audio.addEventListener("play", whilePlaying());
+seekSlider.addEventListener("input", () => {
+    currentTimeContainer.textContent = calculateTime(seekSlider.value);
+    if (!audio.paused) {
+        cancelAnimationFrame(raf);
+    }
+});
+
+seekSlider.addEventListener("change", () => {
+    audio.currentTime = seekSlider.value;
+    if (!audio.paused) {
+        requestAnimationFrame(whilePlaying);
+    }
+});
+
+//MIC BUTTON BEHAVIOR
 
 let micStream = null;
 
@@ -360,20 +377,6 @@ micToggleBtn.addEventListener("click", () => {
 //             .catch((error) => console.log(error));
 //     }
 // }
-
-seekSlider.addEventListener("input", () => {
-    currentTimeContainer.textContent = calculateTime(seekSlider.value);
-    if (!audio.paused) {
-        cancelAnimationFrame(raf);
-    }
-});
-
-seekSlider.addEventListener("change", () => {
-    audio.currentTime = seekSlider.value;
-    if (!audio.paused) {
-        requestAnimationFrame(whilePlaying);
-    }
-});
 
 // LOCAL STORAGE BEHAVIOR
 
