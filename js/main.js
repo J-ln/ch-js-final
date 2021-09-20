@@ -1,3 +1,20 @@
+//AJAX
+//Request metadata of upload files. Only works with mp3 files at the moment
+async function getMetadata(title) {
+    let search = title.replace(/\s/g, "%20");
+    search = search.replace(".mp3", "");
+    $.get(
+        `https://musicbrainz.org/ws/2/recording?query=%22${search}%22&limit=1&fmt=json`,
+        function (res) {
+            let metadata = res;
+            console.log(metadata);
+            songTitle.innerHTML = metadata.recordings[0].title;
+            songArtist.innerHTML =
+                metadata.recordings[0]["artist-credit"][0].artist.name;
+        }
+    );
+}
+
 // VARIABLES
 // GENERAL
 const container = document.getElementsByClassName("container");
@@ -28,8 +45,6 @@ const micToggleBtn = document.getElementById("micBtn");
 const file = document.getElementById("fileupload");
 
 //SETTINGS
-const newPatternBtn = document.getElementById("addPattern");
-const patternBtnContainer = document.getElementById("patternBtnCont");
 const patternBtns = document.getElementsByClassName("settings_label");
 const simpleBtn = document.getElementById("toggleSimple");
 const granBtn = document.getElementById("toggleGran");
@@ -51,16 +66,13 @@ let b = 125;
 let rangeColor;
 let currentPattern = 0;
 
-//MODAL
-const modal = document.getElementById("modal");
-
 //AUDIO AND VIZUALIZER INIT FUNCTION
 //
 file.addEventListener("change", function () {
     const files = this.files;
     audioContext = new AudioContext();
     playIconContainer.ariaDisabled = "false";
-    songTitle.innerHTML = files[0].name;
+    getMetadata(files[0].name);
     audio.src = URL.createObjectURL(files[0]);
     audio.load();
     audioSource = audioContext.createMediaElementSource(audio);
@@ -68,37 +80,9 @@ file.addEventListener("change", function () {
     audioSource.connect(analyser);
     analyser.connect(audioContext.destination);
     analyser.fftSize = 1024;
-    const bufferLength = analyser.frequencyBinCount;
-    const dataArray = new Uint8Array(bufferLength);
-    let x;
-    function animate() {
-        x = 0;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        analyser.getByteFrequencyData(dataArray);
-        if (currentPattern == "0") {
-            drawVisualiserSimple(
-                bufferLength,
-                x,
-                barWidth,
-                barHeight,
-                dataArray
-            );
-        } else if (currentPattern == "1") {
-            drawVisualiserGran(bufferLength, x, barWidth, barHeight, dataArray);
-        } else if (currentPattern == "2") {
-            drawVisualiserMirror(
-                bufferLength,
-                x,
-                barWidth,
-                barHeight,
-                dataArray
-            );
-        }
+    let bufferLength = analyser.frequencyBinCount;
 
-        requestAnimationFrame(animate);
-    }
-
-    animate();
+    animate(bufferLength);
 });
 
 //CANVAS HEAVIOR
@@ -109,6 +93,23 @@ settingsBtn.addEventListener("click", function () {
 });
 
 //TO DRAW VIZUALIZER BEHAVIOR
+
+function animate(bufferLength) {
+    let dataArray = new Uint8Array(bufferLength);
+    let x = 0;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    analyser.getByteFrequencyData(dataArray);
+    if (currentPattern == "0") {
+        drawVisualiserSimple(bufferLength, x, barWidth, barHeight, dataArray);
+    } else if (currentPattern == "1") {
+        drawVisualiserGran(bufferLength, x, barWidth, barHeight, dataArray);
+    } else if (currentPattern == "2") {
+        drawVisualiserMirror(bufferLength, x, barWidth, barHeight, dataArray);
+    }
+
+    requestAnimationFrame(animate);
+}
+
 // SIMPLE BARS
 
 function drawVisualiserSimple(bufferLength, x, barWidth, barHeight, dataArray) {
@@ -193,37 +194,11 @@ function drawVisualiserMirror(bufferLength, x, barWidth, barHeight, dataArray) {
 //SETTINGS BEHAVIOR
 
 //NEW PATTERN BTN
-newPatternBtn.addEventListener("click", function () {
-    if (modal.innerHTML == "") {
-        modal.innerHTML = `
-                    <form class="modal_form">
-                        <div class="modal_nameP">
-                            <label for="name">Name </label>
-                            <input class="modal_input--text" type="text" />
-                        </div>
-                        <div class="modal_colorP">
-                            <label for="color">Color </label>
-                            <div id="modal_pickerContainer"></div>
-                        </div>
-                        <div class="modal_sizeP">
-                            <label for="size">Size </label>
-                            <input class="modal_input--text" type="" />
-                        </div>
-                        <div class="modal_formP">
-                            <label for="form">Form </label>
-                            <input class="modal_input--text" type="text" />
-                        </div>
 
-                        <div
-                            id="modal_newPatBtn"
-                            class="modal_btn"
-                        >
-                            Create New Pattern
-                        </div>
-                    </form> `;
-
-        modal.classList.toggle("modal--close");
-    }
+$("#addPattern").on("click", function () {
+    $("#modal").html("");
+    $("#modal").append(addPatternModal);
+    $("#modal").toggleClass("modal--close");
 });
 
 //PATERNS BTNS
@@ -280,7 +255,6 @@ modal.addEventListener(
         if (target && target.id === "modal_newPatBtn") {
             modal.innerHTML = "";
             modal.classList.toggle("modal--close");
-            // modal.style.visibility = "hidden";
         }
     },
     false
@@ -338,9 +312,54 @@ playIconContainer.addEventListener("click", () => {
 
 audio.addEventListener("play", whilePlaying());
 
+let micStream = null;
+
+async function micToggle(micStream) {
+    micStream = new MediaStream();
+    try {
+        micStream = await navigator.mediaDevices.getUserMedia({
+            audio: true,
+        });
+        return micStream;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 micToggleBtn.addEventListener("click", () => {
     micToggleBtn.classList.toggle("active");
+    if (micStream === null) {
+        micStream = new MediaStream();
+        micStream = micToggle(micStream);
+        console.log(micStream);
+    }
+    console.log(micStream);
+    if (micToggleBtn.classList.contains("active")) {
+        audioContext = new AudioContext();
+        audioSource = audioContext.createMediaStreamSource(micStream);
+        analyser = audioContext.createAnalyser();
+        analyser.minDecibels = -120;
+        analyser.maxDecibels = 30;
+        audioSource.connect(analyser);
+        analyser.fftSize = 1024;
+        const bufferLength = analyser.frequencyBinCount;
+        animate(bufferLength);
+    } else if (!micToggleBtn.classList.contains("active")) {
+        console.log(micStream);
+        micStream = null;
+    }
 });
+
+// micToggleBtn.addEventListener("class", micToggle);
+
+// if ($("#micBtb").hasClass("active")) {
+//     if (!navigator.mediaDevices.getUserMedia) {
+//         navigator.mediaDevices
+//             .getUserMedia({ audio: ture })
+//             .then(micStream)
+//             .catch((error) => console.log(error));
+//     }
+// }
 
 seekSlider.addEventListener("input", () => {
     currentTimeContainer.textContent = calculateTime(seekSlider.value);
@@ -377,7 +396,7 @@ window.onbeforeunload = () => {
 
 window.onload = checkConfig;
 
-function checkConfig() {
+async function checkConfig() {
     if (window.localStorage.getItem("user")) {
         let toLoad = JSON.parse(localStorage.getItem("user"));
         currentPattern = toLoad[0];
@@ -402,3 +421,32 @@ function checkConfig() {
     g = greenP.value;
     b = blueP.value;
 }
+
+// Modals
+
+const addPatternModal = `
+                    <form class="modal_form">
+                        <div class="modal_nameP">
+                            <label for="name">Name </label>
+                            <input class="modal_input--text" type="text" />
+                        </div>
+                        <div class="modal_colorP">
+                            <label for="color">Color </label>
+                            <div id="modal_pickerContainer"></div>
+                        </div>
+                        <div class="modal_sizeP">
+                            <label for="size">Size </label>
+                            <input class="modal_input--text" type="" />
+                        </div>
+                        <div class="modal_formP">
+                            <label for="form">Form </label>
+                            <input class="modal_input--text" type="text" />
+                        </div>
+
+                        <div
+                            id="modal_newPatBtn"
+                            class="modal_btn"
+                        >
+                            Create New Pattern
+                        </div>
+                    </form> `;
