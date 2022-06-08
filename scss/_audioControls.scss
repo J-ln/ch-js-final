@@ -8,21 +8,26 @@
     width: 100%;
     height: $audio-controls-height;
     z-index: 2500;
-    box-shadow: -0.1rem 0 0.3rem rgb(182, 182, 182);
+    border-top: 3px ridge gray;
+    border-bottom: 3px ridge gray;
+    box-shadow: -0.1rem 0 0.3rem black;
     background-color: $rich-black-fogra-39;
     color: whitesmoke;
+
     .audioControls_info {
         position: absolute;
         left: 1rem;
         display: flex;
         flex-direction: row;
         justify-content: center;
+
         .info_label {
             border-radius: 5px;
             background-color: darkgray;
             height: 4rem;
             width: 4rem;
         }
+
         .info_text {
             margin-left: 1rem;
             display: flex;
@@ -30,16 +35,19 @@
             align-items: flex-start;
             justify-content: center;
             text-align: left;
+
             .info_name {
                 font-weight: $f-black;
                 font-size: 1rem;
             }
+
             .info_artist {
                 font-size: 0.75rem;
                 color: hsla(0, 0%, 73%, 0.842);
             }
         }
     }
+
     .audioControls_audioPlayer {
         display: flex;
         flex-direction: column;
@@ -47,21 +55,26 @@
         justify-content: center;
         width: 30%;
         height: 100%;
+
         .audioPlayer_src {
             visibility: none;
         }
+
         .audioPlayer_buttons {
             display: flex;
             flex-direction: row;
             align-items: center;
             justify-content: center;
             padding-bottom: 0.3rem;
+
             .audioPlayer_prevIcon {
                 @include button-1;
             }
+
             .audioPlayer_playIcon {
                 @include button-1;
             }
+
             .audioPlayer_nextIcon {
                 @include button-1;
             }
@@ -71,17 +84,20 @@
             display: flex;
             flex-direction: row;
             width: 100%;
+
             .audioPlayer_lengthSlider {
                 appearance: none;
                 width: 100%;
                 background: transparent;
                 margin: 0 0.5rem;
             }
+
             .audioPlayer_cTime,
             .audioPlayer_dTime {
                 font-size: 0.7rem;
                 font-weight: $f-bold;
             }
+
             .audioPlayer_lengthSlider::-webkit-slider-thumb {
                 -webkit-appearance: none;
                 border: 1px solid #000000;
@@ -94,6 +110,7 @@
                 margin-top: -0.3rem;
                 box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
             }
+
             .audioPlayer_lengthSlider::-webkit-slider-runnable-track {
                 width: 100%;
                 height: 0.2rem;
@@ -105,6 +122,7 @@
             }
         }
     }
+
     .audioControls_buttons {
         display: flex;
         flex-direction: row;
@@ -112,10 +130,12 @@
         justify-content: center;
         position: absolute;
         right: 0.5rem;
+
         .audio-btn {
             margin: 0 auto 1em;
             padding: 0.8rem;
         }
+
         .upload-btm {
             margin: 0;
             color: white;
@@ -125,9 +145,11 @@
             border: inset 1px white;
             margin: auto 0.5rem;
             user-select: none;
+
             &:hover {
                 background-color: rgba(245, 245, 245, 0.2);
             }
+
             &:active {
                 border-radius: 5px;
                 border: 1px solid white;
@@ -137,8 +159,10 @@
                     inset -0.4rem 0 0.3rem rgba(131, 129, 129, 0.4);
             }
         }
+
         .mic-btn {
             @include button-2;
+
             &.active {
                 background-color: hsla(0, 100%, 39%, 0.4);
                 box-shadow: inset 0.2rem 0 0.1rem hsla(0, 0%, 8%, 0.692),
@@ -147,8 +171,50 @@
                     inset -0.1rem 0 0.1rem hsla(0, 0%, 30%, 0.651);
             }
         }
+
         .queue-btn {
             @include button-1;
+        }
+    }
+}
+
+.audioControls_queueList {
+    height: $queue-list-height;
+    width: $nav-widht;
+    background-color: hsla(0, 0%, 0%, 0.7);
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1000;
+    bottom: $audio-controls-height;
+    right: 0;
+    transition: bottom 0.5s;
+
+    &.closed {
+        bottom: -100%;
+
+    }
+
+    .queueList_queueElement {
+        cursor: pointer;
+        width: 100%;
+        height: 5rem;
+        display: inherit;
+        flex-direction: inherit;
+        align-items: center;
+        justify-content: center;
+        box-shadow:
+            inset -0.1rem 0 0.1rem hsla(0, 0%, 40%, 0.651);
+
+        .queueElement_song {
+            font-weight: $f-black;
+            font-size: 0.75rem;
+            color: whitesmoke;
+        }
+
+        &:hover {
+            background-color: rgba(245, 245, 245, 0.1);
         }
     }
 }

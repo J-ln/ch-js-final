@@ -6,16 +6,17 @@ const settings = document.getElementById("settings");
 
 //CANVAS
 const canvas = document.getElementById("canvas");
+const canvasContainer = document.getElementById("canvasCont")
 canvas.width = canvas.clientWidth;
 canvas.height = canvas.clientHeight;
 const ctx = canvas.getContext("2d");
 const settingsBtn = document.getElementById("settingsBtn");
+const fullBtn = document.getElementById("fullBtn");
 
 //AUDIO
 const audio = document.getElementById("audio1");
 let audioContext;
 let audioSource;
-let analyser;
 
 //AUDIO PLAYER
 const playIconContainer = document.getElementById("play-icon");
@@ -25,6 +26,7 @@ const seekSlider = document.getElementById("seek-slider");
 const durationContainer = document.getElementById("duration");
 const currentTimeContainer = document.getElementById("current-time");
 const micToggleBtn = document.getElementById("micBtn");
+const queueBtn = document.getElementById("queueBtn")
 const file = document.getElementById("fileupload");
 
 //SETTINGS
@@ -36,6 +38,7 @@ const granBtn = document.getElementById("toggleGran");
 const mirrorBtn = document.getElementById("toggleMirror");
 const colorModeBtn = document.getElementById("checkColorMode");
 const sizeP = document.getElementById("sizeP");
+const spaceP = document.getElementById("spaceP");
 const redP = document.getElementById("redP");
 const greenP = document.getElementById("greenP");
 const blueP = document.getElementById("blueP");
@@ -54,27 +57,117 @@ let currentPattern = 0;
 //MODAL
 const modal = document.getElementById("modal");
 
+function initQueueList(files) {
+    let queueList = document.getElementById("queueList");
+    console.log(files)
+    for (i = 0; i < files.length; i++) {
+        queueList.innerHTML += `
+        <div id="queueElement" class="queueList_queueElement">
+                <div class="queueElement_song">${files[i].name}</div>
+        </div>`
+
+    }
+}
+
 //AUDIO AND VIZUALIZER INIT FUNCTION
 //
+
+function animate() {
+    let x = 0;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (currentPattern == "0") {
+        drawVisualiserSimple(
+            bufferLength,
+            x,
+            barWidth,
+            barHeight,
+            dataArray
+        );
+    } else if (currentPattern == "1") {
+        drawVisualiserGran(bufferLength, x, barWidth, barHeight, dataArray);
+    } else if (currentPattern == "2") {
+        drawVisualiserMirror(
+            bufferLength,
+            x,
+            barWidth,
+            barHeight,
+            dataArray
+        );
+    }
+
+    requestAnimationFrame(animate);
+}
+
+function setMicAudio() {
+    if (micToggleBtn.className === "active") {
+        navigator.mediaDevices.getUserMedia({ audio: true })
+            .then(function (stream) {
+                audio.src = "";
+                audioContext = new AudioContext();
+                const analyser = audioContext.createAnalyser();
+                audioSource = audioContext.createMediaStreamSource(stream);
+                analyser.fftSize = 2048;
+                audioSource.connect(analyser);
+                const bufferLength = analyser.frequencyBinCount;
+                const dataArray = new Uint8Array(bufferLength);
+                function animate() {
+                    analyser.getByteFrequencyData(dataArray);
+                    let x = 0;
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    if (currentPattern == "0") {
+                        drawVisualiserSimple(
+                            bufferLength,
+                            x,
+                            barWidth,
+                            barHeight,
+                            dataArray
+                        );
+                    } else if (currentPattern == "1") {
+                        drawVisualiserGran(bufferLength, x, barWidth, barHeight, dataArray);
+                    } else if (currentPattern == "2") {
+                        drawVisualiserMirror(
+                            bufferLength,
+                            x,
+                            barWidth,
+                            barHeight,
+                            dataArray
+                        );
+                    }
+
+                    requestAnimationFrame(animate);
+                }
+                animate();
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+    } else {
+        navigator.mediaStream.getAudioTracks()[0].enabled = false;
+    }
+
+}
+
 file.addEventListener("change", function () {
     const files = this.files;
+    initQueueList(files)
     audioContext = new AudioContext();
     playIconContainer.ariaDisabled = "false";
     songTitle.innerHTML = files[0].name;
     audio.src = URL.createObjectURL(files[0]);
     audio.load();
     audioSource = audioContext.createMediaElementSource(audio);
-    analyser = audioContext.createAnalyser();
+    const analyser = audioContext.createAnalyser();
     audioSource.connect(analyser);
     analyser.connect(audioContext.destination);
-    analyser.fftSize = 1024;
+    analyser.fftSize = 256;
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
-    let x;
+
     function animate() {
-        x = 0;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        let x = 0;
         analyser.getByteFrequencyData(dataArray);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         if (currentPattern == "0") {
             drawVisualiserSimple(
                 bufferLength,
@@ -97,7 +190,6 @@ file.addEventListener("change", function () {
 
         requestAnimationFrame(animate);
     }
-
     animate();
 });
 
@@ -107,6 +199,11 @@ settingsBtn.addEventListener("click", function () {
     settings.classList.toggle("collapsed");
     pageContent.classList.toggle("resize-settings");
 });
+
+fullBtn.addEventListener("click", function () {
+    canvasContainer.classList.toggle("fullscreen")
+})
+
 
 //TO DRAW VIZUALIZER BEHAVIOR
 // SIMPLE BARS
@@ -338,8 +435,13 @@ playIconContainer.addEventListener("click", () => {
 
 audio.addEventListener("play", whilePlaying());
 
+
+
+
+
 micToggleBtn.addEventListener("click", () => {
     micToggleBtn.classList.toggle("active");
+    setMicAudio()
 });
 
 seekSlider.addEventListener("input", () => {
@@ -356,6 +458,11 @@ seekSlider.addEventListener("change", () => {
     }
 });
 
+queueBtn.addEventListener("click", () => {
+    let queueList = document.getElementById("queueList");
+    queueList.classList.toggle("closed");
+})
+
 // LOCAL STORAGE BEHAVIOR
 
 function colorModeState() {
@@ -365,12 +472,12 @@ function colorModeState() {
 
 window.onbeforeunload = () => {
     const userConfig = [
-        (pattern = currentPattern),
-        (Usize = sizeP.value),
-        (red = redP.value),
-        (green = greenP.value),
-        (blue = blueP.value),
-        (colorModeState = colorModeState()),
+        pattern = currentPattern,
+        barWidth = sizeP.value,
+        r = redP.value,
+        g = greenP.value,
+        b = blueP.value,
+        colorModeState = colorModeState(),
     ];
     window.localStorage.setItem("user", JSON.stringify(userConfig));
 };

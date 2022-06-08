@@ -9,11 +9,13 @@
     overflow-y: scroll;
     overflow-x: hidden;
     box-shadow: 0.05rem 0 0.4rem rgba(255, 255, 255, 0.295);
-    transition: margin 0.5s;
+    transition: margin 0.2s;
     margin-left: 0;
+
     &.collapsed {
         margin-left: -100%;
     }
+
     &::-webkit-scrollbar {
         width: 0.3rem;
     }
@@ -28,6 +30,7 @@
         background-image: linear-gradient(180deg, #d0368a 0%, #708ad4 99%);
         box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
     }
+
     .settings_visualControls {
         display: flex;
         flex-direction: column;
@@ -35,6 +38,7 @@
         justify-content: center;
         width: calc(100% - #{$collapsed-nav-width} * 2);
         margin: 0 auto;
+
         .settings_slider {
             display: flex;
             flex-direction: column;
@@ -42,14 +46,17 @@
             justify-content: center;
             width: 100%;
             margin: 1rem 0;
+
             .label {
                 color: white;
                 align-self: flex-start;
                 font-size: 1.3rem;
             }
+
             .slider {
                 width: 100%;
                 margin: 1rem 0;
+
                 &::-webkit-slider-thumb {
                     appearance: none;
                     border: 1px solid #000000;
@@ -62,6 +69,7 @@
                     margin-top: -0.3rem;
                     box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
                 }
+
                 &::-webkit-slider-runnable-track {
                     width: 100%;
                     height: 0.2rem;
@@ -72,18 +80,21 @@
                     margin: 0;
                 }
             }
+
             .switchBtn {
                 position: relative;
                 display: flex;
                 flex-direction: row;
                 align-items: center;
                 margin: 1rem 0;
+
                 .switch_span {
                     display: inline-block;
                     color: whitesmoke;
                     margin-right: 0.5rem;
                     font-size: 0.8rem;
                 }
+
                 .switch_check {
                     position: absolute;
                     right: 0;
@@ -94,10 +105,12 @@
                     margin: 0;
                     border-radius: 15px;
                     cursor: pointer;
-                    &:checked + .switch_button::before {
+
+                    &:checked+.switch_button::before {
                         transform: translateX(1.6rem);
                     }
                 }
+
                 .switch_button {
                     position: relative;
                     display: inline-block;
@@ -108,6 +121,7 @@
                     height: 1.8rem;
                     border-radius: 15px;
                     transition: transform 0.4s;
+
                     &::before {
                         content: "";
                         position: absolute;
@@ -124,26 +138,30 @@
             }
         }
     }
+
     .settings_logo {
         position: sticky;
         top: 0;
         width: 100%;
-        height: 7rem;
+        height: $logo-height;
         z-index: 50;
         background-color: $rich-black-fogra-39;
         box-shadow: 0 -0.2rem 0.8rem whitesmoke;
     }
+
     .patterns_buttons {
         margin-top: 1.5rem;
         width: 100%;
         display: flex;
         flex-direction: column;
     }
+
     .patterns_label {
         color: whitesmoke;
         margin-left: $collapsed-nav-width;
         font-size: 1.3rem;
     }
+
     .setting_addPattern {
         background-color: hsla(0, 0%, 100%, 0.8);
         display: inline-block;
@@ -161,9 +179,11 @@
         border: 1px groove whitesmoke;
         box-shadow: 0.1rem 0.1rem 0.3rem rgb(184, 184, 184),
             -0.1rem -0.1rem 0.3rem rgb(148, 144, 144);
+
         &:hover {
             background: hsla(0, 0%, 96%, 1);
         }
+
         &:active {
             box-shadow: inset 0.4rem 0 0.3rem rgba(15, 15, 15, 0.4),
                 inset 0 0.4rem 0.3rem rgba(15, 15, 15, 0.4),
@@ -171,6 +191,7 @@
                 inset -0.4rem 0 0.3rem rgba(131, 129, 129, 0.4);
         }
     }
+
     .settings_label {
         background-color: $rich-black-fogra-39;
         display: inline-block;
@@ -188,15 +209,18 @@
         cursor: pointer;
         box-shadow: 0.1rem 0.1rem 0.3rem rgb(184, 184, 184),
             -0.1rem -0.1rem 0.3rem rgb(148, 144, 144);
+
         &:hover {
             background: hsla(0, 0%, 96%, 0.3);
         }
+
         &:active {
             box-shadow: inset 0.4rem 0 0.3rem rgba(15, 15, 15, 0.4),
                 inset 0 0.4rem 0.3rem rgba(15, 15, 15, 0.4),
                 inset 0 -0.4rem 0.3rem rgba(131, 129, 129, 0.4),
                 inset -0.4rem 0 0.3rem rgba(131, 129, 129, 0.4);
         }
+
         &.selected {
             background-color: hsla(300, 47%, 75%, 0.6);
             box-shadow: inset 0.4rem 0 0.3rem rgba(15, 15, 15, 0.4),

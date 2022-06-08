@@ -70,12 +70,30 @@ body {
   position: relative;
 }
 
-.container .logo_link {
-  text-decoration: none;
+.container .logo {
+  padding: 0%;
   position: fixed;
-  margin: auto auto;
-  height: 7rem;
-  width: 20rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  top: calc(7rem / 2);
+  left: calc(20rem / 2);
+  overflow-x: hidden;
+  z-index: 1500;
+  font-weight: 700;
+  font-size: 1.5rem;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.container .logo .logo_link {
+  text-decoration: none;
   text-align: center;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -83,31 +101,31 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  left: 6rem;
-  top: 0;
-  overflow-x: visible;
-  z-index: 1500;
-  font-weight: 700;
-  font-size: 1.5rem;
+  max-width: -webkit-fit-content;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+  max-height: -webkit-fit-content;
+  max-height: -moz-fit-content;
+  max-height: fit-content;
 }
 
-.container .logo_link .logo.img {
+.container .logo .logo_link .logo.img {
   background-color: none;
 }
 
-.container .logo_link .logo_text {
+.container .logo .logo_link .logo_text {
   color: whitesmoke;
 }
 
-.container .logo_link .color1 {
+.container .logo .logo_link .color1 {
   color: palevioletred;
 }
 
-.container .logo_link .color2 {
+.container .logo .logo_link .color2 {
   color: purple;
 }
 
-.container .logo_link .color3 {
+.container .logo .logo_link .color3 {
   color: #0a9396ff;
 }
 
@@ -118,10 +136,11 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  height: calc(100% - 5rem);
+  height: calc(100% - (5rem + 6px));
   width: auto;
-  -webkit-transition: padding 0.5s;
-  transition: padding 0.5s;
+  z-index: 2500;
+  -webkit-transition: padding 0.2s;
+  transition: padding 0.2s;
   overflow: hidden;
   padding-bottom: 5rem;
   background-color: #231d1d;
@@ -139,8 +158,17 @@ body {
   border: 3px ridge gray;
   border-radius: 10px;
   margin: auto 0;
-  -webkit-box-shadow: 0.1rem 0 0.3rem black, 0 0.1rem 0.3rem black, -0.1rem 0 0.3rem black, 0 -0.1rem 0.3rem black;
-          box-shadow: 0.1rem 0 0.3rem black, 0 0.1rem 0.3rem black, -0.1rem 0 0.3rem black, 0 -0.1rem 0.3rem black;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+  -webkit-box-shadow: 0.1rem 0 0.3rem black, 0 0.1rem 0.3rem black, -0.1rem 0 0.3rem black, 0 -0.1rem 0.3rem black;
+          box-shadow: 0.1rem 0 0.3rem black, 0 0.1rem 0.3rem black, -0.1rem 0 0.3rem black, 0 -0.1rem 0.3rem black;
+}
+
+.container .content .canvas_container.fullscreen {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  border: none;
 }
 
 .container .content .canvas_container .canvas {
@@ -189,6 +217,7 @@ body {
       -ms-user-select: none;
           user-select: none;
   position: absolute;
+  z-index: 3000;
   bottom: 0.25rem;
   right: 0.25rem;
 }
@@ -222,8 +251,10 @@ body {
   width: 100%;
   height: 5rem;
   z-index: 2500;
-  -webkit-box-shadow: -0.1rem 0 0.3rem #b6b6b6;
-          box-shadow: -0.1rem 0 0.3rem #b6b6b6;
+  border-top: 3px ridge gray;
+  border-bottom: 3px ridge gray;
+  -webkit-box-shadow: -0.1rem 0 0.3rem black;
+          box-shadow: -0.1rem 0 0.3rem black;
   background-color: #050505ff;
   color: whitesmoke;
 }
@@ -536,6 +567,61 @@ body {
           box-shadow: inset 0.4rem 0 0.3rem rgba(15, 15, 15, 0.4), inset 0 0.4rem 0.3rem rgba(15, 15, 15, 0.4), inset 0 -0.4rem 0.3rem rgba(131, 129, 129, 0.4), inset -0.4rem 0 0.3rem rgba(131, 129, 129, 0.4);
 }
 
+.audioControls_queueList {
+  height: calc(100% - 5rem);
+  width: 20rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  z-index: 1000;
+  bottom: 5rem;
+  right: 0;
+  -webkit-transition: bottom 0.5s;
+  transition: bottom 0.5s;
+}
+
+.audioControls_queueList.closed {
+  bottom: -100%;
+}
+
+.audioControls_queueList .queueList_queueElement {
+  cursor: pointer;
+  width: 100%;
+  height: 5rem;
+  display: inherit;
+  -webkit-box-orient: inherit;
+  -webkit-box-direction: inherit;
+      -ms-flex-direction: inherit;
+          flex-direction: inherit;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-shadow: inset -0.1rem 0 0.1rem rgba(102, 102, 102, 0.651);
+          box-shadow: inset -0.1rem 0 0.1rem rgba(102, 102, 102, 0.651);
+}
+
+.audioControls_queueList .queueList_queueElement .queueElement_song {
+  font-weight: 900;
+  font-size: 0.75rem;
+  color: whitesmoke;
+}
+
+.audioControls_queueList .queueList_queueElement:hover {
+  background-color: rgba(245, 245, 245, 0.1);
+}
+
 .content_modal {
   position: absolute;
   display: -webkit-box;
@@ -688,8 +774,8 @@ body {
   overflow-x: hidden;
   -webkit-box-shadow: 0.05rem 0 0.4rem rgba(255, 255, 255, 0.295);
           box-shadow: 0.05rem 0 0.4rem rgba(255, 255, 255, 0.295);
-  -webkit-transition: margin 0.5s;
-  transition: margin 0.5s;
+  -webkit-transition: margin 0.2s;
+  transition: margin 0.2s;
   margin-left: 0;
 }
 

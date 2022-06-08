@@ -21,5 +21,7 @@ $ruby-red: #9b2226ff;
 //Size Variables
 
 $nav-widht: 20rem;
+$logo-height : 7rem;
 $collapsed-nav-width: 4rem;
 $audio-controls-height: 5rem;
+$queue-list-height: calc(100% - #{$audio-controls-height})

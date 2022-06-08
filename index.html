@@ -1,216 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="/css/style.css" />
-        <link
-            href="https://fonts.googleapis.com/icon?family=Material+Icons"
-            rel="stylesheet"
-        />
 
-        <title>seeBeats</title>
-    </head>
-    <body>
-        <div class="container">
-            <!-- LOGO -->
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
+    <title>seeBeats</title>
+</head>
+
+<body>
+    <div class="container">
+        <!-- LOGO -->
+        <div class="logo">
             <a href="#" class="logo_link">
                 <div class="logo_icon">
                     <i class="material-icons"> circle </i>
                 </div>
                 <div class="logo_text">
-                    <span class="color1">s</span><span class="color2">e</span
-                    ><span class="color3">e</span>Beats
+                    <span class="color1">s</span><span class="color2">e</span><span class="color3">e</span>Beats
                 </div>
             </a>
+        </div>
 
-            <!-- SETTINGS -->
+        <!-- SETTINGS -->
 
-            <div id="settings" class="settings collapsed">
-                <div class="settings_logo"></div>
-                <div id="patternBtnCont" class="patterns_buttons">
-                    <span class="patterns_label">Patterns</span>
-                    <div id="addPattern" class="setting_addPattern">
-                        +Pattern
-                    </div>
-
-                    <div id="toggleSimple" class="settings_label">Simple</div>
-
-                    <div id="toggleGran" class="settings_label">Gran</div>
-
-                    <div id="toggleMirror" class="settings_label">Mirror</div>
+        <div id="settings" class="settings collapsed">
+            <div class="settings_logo"></div>
+            <div id="patternBtnCont" class="patterns_buttons">
+                <span class="patterns_label">Patterns</span>
+                <div id="addPattern" class="setting_addPattern">
+                    +Pattern
                 </div>
-                <div class="settings_visualControls">
-                    <div class="settings_slider">
-                        <label class="label" for="size">Size</label>
-                        <input
-                            type="range"
-                            min="8"
-                            max="30"
-                            value="8"
-                            class="slider"
-                            id="sizeP"
-                        />
-                    </div>
-                    <div class="settings_slider">
-                        <label class="label" for="sample">Sample</label>
-                        <input
-                            type="range"
-                            min="8"
-                            max="30"
-                            value="8"
-                            class="slider"
-                            id="sampleP"
-                        />
-                    </div>
-                    <div class="settings_slider">
-                        <label class="label" for="color">Color</label>
-                        <div class="switchBtn">
-                            <div class="switch_span">RGB / VAR</div>
-                            <input
-                                class="switch_check"
-                                type="checkbox"
-                                name="colorMode"
-                                id="checkColorMode"
-                            />
-                            <span class="switch_button"></span>
-                        </div>
-                        <input
-                            type="range"
-                            min="1"
-                            max="255"
-                            value="125"
-                            class="slider"
-                            id="redP"
-                        />
 
-                        <input
-                            type="range"
-                            min="1"
-                            max="255"
-                            value="125"
-                            class="slider"
-                            id="greenP"
-                        />
+                <div id="toggleSimple" class="settings_label">Simple</div>
 
-                        <input
-                            type="range"
-                            min="1"
-                            max="255"
-                            value="125"
-                            class="slider"
-                            id="blueP"
-                        />
-                    </div>
-                </div>
+                <div id="toggleGran" class="settings_label">Gran</div>
+
+                <div id="toggleMirror" class="settings_label">Mirror</div>
             </div>
-
-            <!-- CONTENT -->
-
-            <div id="content" class="content">
-                <div class="canvas_container">
-                    <i
-                        id="settingsBtn"
-                        class="material-icons md-light md-bg canvas_settings"
-                    >
-                        tune
-                    </i>
-                    <i class="material-icons md-light md-bg canvas_full">
-                        open_in_full
-                    </i>
-                    <canvas class="canvas" id="canvas"> </canvas>
+            <div class="settings_visualControls">
+                <div class="settings_slider">
+                    <label class="label" for="size">Size</label>
+                    <input type="range" min="8" max="30" value="8" class="slider" id="sizeP" />
                 </div>
-
-                <div id="modal" class="content_modal modal--close"></div>
-            </div>
-
-            <!-- AUDIO PLAYER -->
-
-            <div class="audioControls">
-                <div class="audioControls_info">
-                    <div class="info_label"></div>
-                    <div class="info_text">
-                        <div id="title-container" class="info_name">
-                            No file
-                        </div>
-                        <div id="artist-container" class="info_artist"></div>
-                    </div>
+                <div class="settings_slider">
+                    <label class="label" for="sample">Sample</label>
+                    <input type="range" min="8" max="30" value="8" class="slider" id="sampleP" />
                 </div>
-
-                <div class="audioControls_audioPlayer" id="audioplayer">
-                    <audio
-                        class="audioPlayer_src"
-                        id="audio1"
-                        preload="metadata"
-                    ></audio>
-                    <div class="audioPlayer_buttons">
-                        <i class="material-icons md-mg audioPlayer_prevIcon">
-                            skip_previous
-                        </i>
-
-                        <i
-                            id="play-icon"
-                            class="
-                                material-icons
-                                md-light md-bg
-                                audioPlayer_playIcon
-                            "
-                            aria-disabled="true"
-                        >
-                            play_arrow
-                        </i>
-
-                        <i class="material-icons md-mg audioPlayer_nextIcon">
-                            skip_next
-                        </i>
+                <div class="settings_slider">
+                    <label class="label" for="color">Color</label>
+                    <div class="switchBtn">
+                        <div class="switch_span">RGB / VAR</div>
+                        <input class="switch_check" type="checkbox" name="colorMode" id="checkColorMode" />
+                        <span class="switch_button"></span>
                     </div>
+                    <input type="range" min="1" max="255" value="125" class="slider" id="redP" />
 
-                    <div class="audioPlayer_timeSliderContainer">
-                        <span id="current-time" class="audioPlayer_cTime"
-                            >0:00</span
-                        >
+                    <input type="range" min="1" max="255" value="125" class="slider" id="greenP" />
 
-                        <input
-                            class="audioPlayer_lengthSlider"
-                            type="range"
-                            id="seek-slider"
-                            max="100"
-                            value="0"
-                        />
-
-                        <span id="duration" class="audioPlayer_dTime"
-                            >0:00</span
-                        >
-                    </div>
-                </div>
-
-                <div class="audioControls_buttons">
-                    <i class="mic-btn material-icons md-mg" id="micBtn">mic</i>
-
-                    <input
-                        type="file"
-                        id="fileupload"
-                        accept="audio/*"
-                        hidden
-                    />
-
-                    <label
-                        class="material-icons md-mg upload-btm"
-                        for="fileupload"
-                        >file_upload</label
-                    >
-
-                    <i id="queueBtn" class="material-icons md-mg queue-btn">
-                        queue_music
-                    </i>
+                    <input type="range" min="1" max="255" value="125" class="slider" id="blueP" />
                 </div>
             </div>
         </div>
 
-        <!-- END -->
+        <!-- CONTENT -->
 
-        <script src="js/main.js"></script>
-    </body>
+        <div id="content" class="content">
+            <div id="canvasCont" class="canvas_container">
+                <i id="settingsBtn" class="material-icons md-light md-bg canvas_settings">
+                    tune
+                </i>
+                <i id="fullBtn" class="material-icons md-light md-bg canvas_full">
+                    open_in_full
+                </i>
+                <canvas class="canvas" id="canvas"> </canvas>
+            </div>
+
+            <div id="modal" class="content_modal modal--close"></div>
+        </div>
+
+        <!-- AUDIO PLAYER -->
+
+        <div id="queueList" class="audioControls_queueList closed">
+
+        </div>
+
+        <div class="audioControls">
+            <div class="audioControls_info">
+                <div class="info_label"></div>
+                <div class="info_text">
+                    <div id="title-container" class="info_name">
+                        No file
+                    </div>
+                    <div id="artist-container" class="info_artist"></div>
+                </div>
+            </div>
+
+            <div class="audioControls_audioPlayer" id="audioplayer">
+                <audio class="audioPlayer_src" id="audio1" preload="metadata"></audio>
+                <div class="audioPlayer_buttons">
+                    <i class="material-icons md-mg audioPlayer_prevIcon">
+                        skip_previous
+                    </i>
+
+                    <i id="play-icon" class="
+                                material-icons
+                                md-light md-bg
+                                audioPlayer_playIcon
+                            " aria-disabled="true">
+                        play_arrow
+                    </i>
+
+                    <i class="material-icons md-mg audioPlayer_nextIcon">
+                        skip_next
+                    </i>
+                </div>
+
+                <div class="audioPlayer_timeSliderContainer">
+                    <span id="current-time" class="audioPlayer_cTime">0:00</span>
+
+                    <input class="audioPlayer_lengthSlider" type="range" id="seek-slider" max="100" value="0" />
+
+                    <span id="duration" class="audioPlayer_dTime">0:00</span>
+                </div>
+            </div>
+
+            <div class="audioControls_buttons">
+                <i class="mic-btn material-icons md-mg" id="micBtn">mic</i>
+
+                <input type="file" id="fileupload" multiple accept="audio/*" hidden />
+
+                <label class="material-icons md-mg upload-btm" for="fileupload">file_upload</label>
+
+                <i id="queueBtn" class="material-icons md-mg queue-btn">
+                    queue_music
+                </i>
+
+
+            </div>
+        </div>
+    </div>
+
+    <!-- END -->
+
+    <script src="js/main.js"></script>
+</body>
+
 </html>
